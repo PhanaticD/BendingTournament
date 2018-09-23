@@ -40,7 +40,7 @@ public final class BendingTournament extends JavaPlugin {
         }
         btManager = new BTManager(this);
         pm.registerEvents(new TournamentListener(this), this);
-        this.getCommand("bendingtournament").setExecutor(new TournamentCommand());
+        this.getCommand("bendingtournament").setExecutor(new TournamentCommand(this));
         Bukkit.getServer().getLogger().info("BendingTournament has successfully been enabled!");
     }
 
@@ -50,7 +50,7 @@ public final class BendingTournament extends JavaPlugin {
             databaseManager.getDatabase().getConnection().createStatement().execute(SqlQueries.CREATE_USERS.getMysqlQuery());
         } else {
             databaseManager.getDatabase().getConnection().createStatement().execute(SqlQueries.CREATE_TOURNAMENTS.getSqliteQuery());
-            databaseManager.getDatabase().getConnection().createStatement().execute(SqlQueries.CREATE_USERS.getMysqlQuery());
+            databaseManager.getDatabase().getConnection().createStatement().execute(SqlQueries.CREATE_USERS.getSqliteQuery());
         }
     }
 

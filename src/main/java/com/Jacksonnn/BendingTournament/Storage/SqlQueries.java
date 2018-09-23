@@ -7,9 +7,8 @@ public enum SqlQueries {
             + "`name` TEXT,"
             + "`winner` TEXT"
             + "PRIMARY KEY (`id`)"
-            + ");",
-            "CREATE TABLE IF NOT EXISTS tournaments ("
-            + "id int IDENTITY(1,1) PRIMARY KEY,"
+            + ");", "CREATE TABLE IF NOT EXISTS tournaments ("
+            + "id integer PRIMARY KEY AUTOINCREMENT,"
             + "startedBy text,"
             + "name text,"
             + "winner text"
@@ -20,16 +19,15 @@ public enum SqlQueries {
             + "`tournament` TEXT,"
             + "`tournament_element` TEXT,"
             + "PRIMARY KEY (`id`)"
-            + ");",
-            "CREATE TABLE IF NOT EXISTS users ("
-            + "id int IDENTITY(1,1) PRIMARY KEY,"
+            + ");", "CREATE TABLE IF NOT EXISTS users ("
+            + "id integer PRIMARY KEY AUTOINCREMENT,"
             + "uuid text,"
             + "tournament text,"
-            + "tournament_element text,"
+            + "tournament_element text"
             + ");"),
     CREATE_TOURNAMENT(
             "INSERT INTO `tournaments` (startedBy, name) VALUES (?, ?)",
-            "INSERT INTO users (startedBy, name) VALUES (?, ?)"),
+            "INSERT INTO tournaments (startedBy, name) VALUES (?, ?)"),
     CREATE_USER(
             "INSERT INTO `users` (uuid) VALUES (?)",
             "INSERT INTO users (uuid) VALUES (?)"),
@@ -55,8 +53,8 @@ public enum SqlQueries {
             "SELECT * FROM `users` WHERE tournament=?",
             "SELECT * FROM users WHERE tournament=?"),
     GET_TOURNAMENT_KEY(
-            "SELECT `id` FROM `tournaments` WHERE tournament=?",
-            "SELECT id FROM tournaments WHERE tournament=?"),
+            "SELECT `id` FROM `tournaments` WHERE name=?",
+            "SELECT id FROM tournaments WHERE name=?"),
     LEAVE_TOURNAMENT(
             "UPDATE `users` SET tournament=?, tournament_element=? WHERE uuid=? AND tournament=?",
             "UPDATE users SET tournament=?, tournament_element=? WHERE uuid=? AND tournament=?");

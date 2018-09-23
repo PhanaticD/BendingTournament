@@ -8,14 +8,15 @@ import com.Jacksonnn.BendingTournament.Tournaments.TournamentStruct;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 public class BTManager {
     private BendingTournament btMain;
-    List<String> tournaments;
-    List<String> users;
+    static List<String> tournaments = new ArrayList<>();
+    static List<String> users = new ArrayList<>();
     HashMap<UUID, GeneralMethods.Elements> players;
     HashMap<Integer, TournamentStruct> tournamentInfo;
 
@@ -25,11 +26,15 @@ public class BTManager {
     }
 
     public void addTournamentData(int id, UUID starterUUID, String name, UUID winner){
+
+        HashMap<Integer, TournamentStruct> tournamentData = getTournamentInfo(name);
+
         tournamentInfo.put(id, new TournamentStruct(starterUUID, name, winner));
     }
 
-    public TournamentStruct getTournamentData(Integer id) {
-        return tournamentInfo.get(id);
+    public TournamentStruct getTournamentData(String name, Integer id) {
+        HashMap<Integer, TournamentStruct> tournamentData = getTournamentInfo(name);
+        return tournamentData.get(id);
     }
 
     public void createUser(UUID createUser) {

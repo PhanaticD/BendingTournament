@@ -1,6 +1,6 @@
 package com.Jacksonnn.BendingTournament;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 
 public class GeneralMethods {
 	public static String prefix = ChatColor.DARK_GRAY + "[" + ChatColor.GRAY + "BendingTournament" + ChatColor.DARK_GRAY + "]" + ChatColor.YELLOW + " ";
