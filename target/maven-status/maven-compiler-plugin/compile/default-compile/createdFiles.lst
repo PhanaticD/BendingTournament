@@ -1,0 +1,15 @@
+com\Jacksonnn\BendingTournament\Configuration\Config.class
+com\Jacksonnn\BendingTournament\Storage\Mysql.class
+com\Jacksonnn\BendingTournament\Storage\SqlQueries.class
+com\Jacksonnn\BendingTournament\BendingTournament.class
+com\Jacksonnn\BendingTournament\Storage\DatabaseManager.class
+com\Jacksonnn\BendingTournament\BTManager.class
+com\Jacksonnn\BendingTournament\Tournaments\TournamentStruct.class
+com\Jacksonnn\BendingTournament\Tournaments\TournamentCommand.class
+com\Jacksonnn\BendingTournament\Storage\Database.class
+com\Jacksonnn\BendingTournament\Configuration\ConfigType.class
+com\Jacksonnn\BendingTournament\GeneralMethods$Elements.class
+com\Jacksonnn\BendingTournament\GeneralMethods.class
+com\Jacksonnn\BendingTournament\Tournaments\TournamentListener.class
+com\Jacksonnn\BendingTournament\Configuration\ConfigManager.class
+com\Jacksonnn\BendingTournament\Storage\SqlLite.class
