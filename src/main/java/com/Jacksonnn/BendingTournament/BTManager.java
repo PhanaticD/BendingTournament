@@ -4,6 +4,7 @@ import com.Jacksonnn.BendingTournament.Storage.Mysql;
 import com.Jacksonnn.BendingTournament.Storage.SqlLite;
 import com.Jacksonnn.BendingTournament.Storage.SqlQueries;
 import com.Jacksonnn.BendingTournament.Tournaments.TournamentStruct;
+import org.bukkit.Bukkit;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,11 +26,11 @@ public class BTManager {
         this.btMain = btMain;
     }
 
-    public void addTournamentData(int id, UUID starterUUID, String name, UUID winner){
+    public void addTournamentData(int id, String startedBy, String name, String winner){
 
         HashMap<Integer, TournamentStruct> tournamentData = getTournamentInfo(name);
 
-        tournamentInfo.put(id, new TournamentStruct(starterUUID, name, winner));
+        tournamentInfo.put(id, new TournamentStruct(startedBy, name, winner));
     }
 
     public TournamentStruct getTournamentData(String name, Integer id) {
@@ -253,10 +254,17 @@ public class BTManager {
 
 
             while (getInfo.next()) {
+                String winner;
                 Integer id = getInfo.getInt("id");
-                UUID startedBy = UUID.fromString(getInfo.getString("startedBy"));
+                String startedBy = Bukkit.getPlayer(UUID.fromString(getInfo.getString("startedBy"))).getName();
                 String name = getInfo.getString("name");
-                UUID winner = UUID.fromString(getInfo.getString("winner"));
+
+                if (getInfo.getString("winner") == null) {
+                    winner = "None";
+                } else {
+                    winner = Bukkit.getPlayer(UUID.fromString(getInfo.getString("winner"))).getName();
+                }
+
                 addTournamentData(id, startedBy, name, winner);
             }
 

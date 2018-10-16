@@ -29,7 +29,7 @@ public class TournamentCommand implements CommandExecutor {
         String tournamentWinner;
 
         if (args[0].equalsIgnoreCase("create")) {
-            if (!args[1].isEmpty()) {
+            if (args[1] != null) {
                 if (sender.hasPermission("bending.tournament.admin")) {
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
@@ -45,8 +45,8 @@ public class TournamentCommand implements CommandExecutor {
                 sender.sendMessage(GeneralMethods.errorColor + "You must provide the name for the tournament.");
             }
         } else if (args[0].equalsIgnoreCase("join")) {
-            if (!args[1].isEmpty()) {
-                if (!args[2].isEmpty()) {
+            if (args[1] != null) {
+                if (args[2] != null) {
                     if (args[2].equalsIgnoreCase("air") || args[2].equalsIgnoreCase("water") || args[2].equalsIgnoreCase("earth") || args[2].equalsIgnoreCase("fire") || args[2].equalsIgnoreCase("chi")) {
                         if (sender.hasPermission("bending.tournament.player")) {
                             if (sender instanceof Player) {
@@ -71,7 +71,7 @@ public class TournamentCommand implements CommandExecutor {
                 sender.sendMessage(GeneralMethods.errorColor + "/bendingtournament join (tournament) (element).");
             }
         } else if (args[0].equalsIgnoreCase("leave")) {
-            if (!args[1].isEmpty()) {
+            if (args[1] != null) {
                 if (sender.hasPermission("bending.tournament.player")) {
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
@@ -88,8 +88,8 @@ public class TournamentCommand implements CommandExecutor {
             }
         } else if (args[0].equalsIgnoreCase("winner")) {
             if (sender.hasPermission("bending.tournament.admin")) {
-                if (!args[1].isEmpty()) {
-                    if (!args[2].isEmpty()) {
+                if (args[1] != null) {
+                    if (args[2] != null) {
                         Player player = Bukkit.getPlayer(args[2]);
                             btMain.getBtManager().setWinner(player.getUniqueId(), args[1]);
                             sender.sendMessage(GeneralMethods.successColor + "You made the winner of the tournament, " + args[1] + ", " + args[2] + ".");
@@ -114,10 +114,14 @@ public class TournamentCommand implements CommandExecutor {
 
                 if (tournamentID == -1) {
                     sender.sendMessage(GeneralMethods.errorColor + "There is no tournament by that name.");
-                    return false;
                 }
 
-                TournamentStruct struct = btMain.getBtManager().getTournamentData(args[1], tournamentID);
+                TournamentStruct struct =
+                        btMain
+                                .getBtManager()
+                                    .getTournamentData(
+                                         args[1],
+                                            tournamentID);
                 List<String> tournamentPlayers = new ArrayList<>();
                 HashMap<UUID, GeneralMethods.Elements> players = btMain.getBtManager().getTournamentPlayers(args[1]);
 
@@ -128,17 +132,11 @@ public class TournamentCommand implements CommandExecutor {
                     tournamentPlayers.add(color + player.getName());
                 }
 
-                if (struct.winnerUUID.equals(null)) {
-                    tournamentWinner = "None";
-                } else {
-                    tournamentWinner = Bukkit.getPlayer(struct.winnerUUID).getName();
-                }
-
                 String formatted = tournamentPlayers.stream().collect(Collectors.joining(", "));
 
                 sender.sendMessage(GeneralMethods.prefix + "Retrieving tournament information...");
                 sender.sendMessage(ChatColor.YELLOW + "Tournament ID: " + tournamentID + " | Name: " + struct.tournamentName);
-                sender.sendMessage(ChatColor.YELLOW + "Started By: " + Bukkit.getPlayer(struct.startedUUID).getName() + " | Winner: " + tournamentWinner);
+                sender.sendMessage(ChatColor.YELLOW + "Started By: " + struct.startedBy + " | Winner: " + struct.winner);
                 sender.sendMessage(ChatColor.YELLOW + "Players: " + formatted);
             } else {
                 sender.sendMessage(GeneralMethods.errorColor + "You do not have sufficient permission to execute this command.");
