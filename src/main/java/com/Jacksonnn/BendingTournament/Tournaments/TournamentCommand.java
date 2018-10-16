@@ -126,6 +126,12 @@ public class TournamentCommand implements CommandExecutor {
                     tournamentPlayers.add(color + player.getName());
                 }
 
+                if (struct.winnerUUID.equals(null)) {
+                    String tournamentWinner = "None";
+                } else {
+                    String tournamentWinner = Bukkit.getPlayer(struct.winnerUUID).getName();
+                }
+
                 String formatted = tournamentPlayers.stream().collect(Collectors.joining(", "));
 
                 sender.sendMessage(GeneralMethods.prefix + "Retrieving tournament information...");
@@ -146,6 +152,13 @@ public class TournamentCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.YELLOW + "For more information on a tournament, do /btournament info (tournament).");
                 tournaments.clear();
             }
+        } else if (args.length == 0) {
+            sender.sendMessage(GeneralMethods.prefix + "Bending Tournament Commands: ");
+            sender.sendMessage(ChatColor.YELLOW + "/bt create <name> - Create a tournament.");
+            sender.sendMessage(ChatColor.YELLOW + "/bt join <name> <element> - Join a tournament with the elements air, water, earth, fire, or chi.");
+            sender.sendMessage(ChatColor.YELLOW + "/bt leave <name> - Leave a tournament.");
+            sender.sendMessage(ChatColor.YELLOW + "/bt list - List all tournaments.");
+            sender.sendMessage(ChatColor.YELLOW + "/bt info <name> - Displays information about a tournament.");
         }
         return true;
     }
