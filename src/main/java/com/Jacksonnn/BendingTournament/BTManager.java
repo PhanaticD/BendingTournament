@@ -27,9 +27,6 @@ public class BTManager {
     }
 
     public void addTournamentData(int id, String startedBy, String name, String winner){
-
-        HashMap<Integer, TournamentStruct> tournamentData = getTournamentInfo(name);
-
         tournamentInfo.put(id, new TournamentStruct(startedBy, name, winner));
     }
 
