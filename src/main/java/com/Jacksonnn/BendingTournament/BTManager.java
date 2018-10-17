@@ -9,17 +9,15 @@ import org.bukkit.Bukkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class BTManager {
     private BendingTournament btMain;
     static List<String> tournaments = new ArrayList<>();
     static List<String> users = new ArrayList<>();
-    HashMap<UUID, GeneralMethods.Elements> players;
-    HashMap<Integer, TournamentStruct> tournamentInfo;
+    Map<UUID, GeneralMethods.Elements> players = new HashMap<>();
+    Map<Integer, TournamentStruct> tournamentData = new HashMap<>();
+    Map<Integer, TournamentStruct> tournamentInfo = new HashMap<>();
 
 
     public BTManager(BendingTournament btMain) {
@@ -31,7 +29,7 @@ public class BTManager {
     }
 
     public TournamentStruct getTournamentData(String name, Integer id) {
-        HashMap<Integer, TournamentStruct> tournamentData = getTournamentInfo(name);
+        tournamentData = getTournamentInfo(name);
         return tournamentData.get(id);
     }
 
@@ -83,6 +81,7 @@ public class BTManager {
     }
 
     public List<String> getTournaments() {
+        tournaments.clear();
         String query;
         if (btMain.getDatabaseManager().getDatabase() instanceof Mysql) {
             query = SqlQueries.GET_TOURNAMENTS.getMysqlQuery();
@@ -125,10 +124,6 @@ public class BTManager {
         }
 
         return users;
-    }
-
-    public boolean hasTournament(UUID uniqueId) {
-        return true;
     }
 
     public void createTournament(UUID startedBy, String name) {
@@ -210,7 +205,7 @@ public class BTManager {
         }
     }
 
-    public HashMap<UUID, GeneralMethods.Elements> getTournamentPlayers(String tournament) {
+    public Map<UUID, GeneralMethods.Elements> getTournamentPlayers(String tournament) {
         String query;
         if (btMain.getDatabaseManager().getDatabase() instanceof Mysql) {
             query = SqlQueries.GET_TOURNAMENT_USERS.getMysqlQuery();
@@ -237,7 +232,7 @@ public class BTManager {
 
         return players;
     }
-    public HashMap<Integer, TournamentStruct> getTournamentInfo(String tournament) {
+    public Map<Integer, TournamentStruct> getTournamentInfo(String tournament) {
         String query;
         if (btMain.getDatabaseManager().getDatabase() instanceof Mysql) {
             query = SqlQueries.GET_TOURNAMENT_INFO.getMysqlQuery();

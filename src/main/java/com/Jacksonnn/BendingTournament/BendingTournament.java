@@ -41,7 +41,7 @@ public final class BendingTournament extends JavaPlugin {
         btManager = new BTManager(this);
         pm.registerEvents(new TournamentListener(this), this);
         this.getCommand("bendingtournament").setExecutor(new TournamentCommand(this));
-        Bukkit.getServer().getLogger().info("BendingTournament has successfully been enabled!");
+        Bukkit.getServer().getLogger().info(GeneralMethods.successColor + "BendingTournament has successfully been enabled!");
     }
 
     private void installDatabase() throws SQLException {
