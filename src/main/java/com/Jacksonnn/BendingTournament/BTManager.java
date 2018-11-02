@@ -145,6 +145,24 @@ public class BTManager {
         }
     }
 
+    public void deleteTournament(String name) {
+        String query;
+        if (btMain.getDatabaseManager().getDatabase() instanceof SqlLite) {
+            query = SqlQueries.DELETE_TOURNAMENT.getSqliteQuery();
+        } else {
+            query = SqlQueries.DELETE_TOURNAMENT.getMysqlQuery();
+        }
+        try {
+            PreparedStatement preparedStatement = btMain.getDatabaseManager().getDatabase()
+                    .getConnection().prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setWinner(UUID winner, String name) {
         String query;
         if (btMain.getDatabaseManager().getDatabase() instanceof SqlLite) {

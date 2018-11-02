@@ -57,7 +57,10 @@ public enum SqlQueries {
             "SELECT id FROM tournaments WHERE name=?"),
     LEAVE_TOURNAMENT(
             "UPDATE `users` SET tournament=?, tournament_element=? WHERE uuid=? AND tournament=?",
-            "UPDATE users SET tournament=?, tournament_element=? WHERE uuid=? AND tournament=?");
+            "UPDATE users SET tournament=?, tournament_element=? WHERE uuid=? AND tournament=?"),
+    DELETE_TOURNAMENT(
+            "DELETE FROM `tournaments` WHERE tournament=?",
+            "DELETE FROM tournaments WHERE tournament=?");
 
     private String mysqlQuery;
     private String sqliteQuery;
