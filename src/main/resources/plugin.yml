@@ -2,6 +2,7 @@ name: BendingTournament
 version: ${project.version}
 main: com.Jacksonnn.BendingTournament.BendingTournament
 authors: [Jacksonnn]
+api-version: 1.13
 commands:
   bendingtournament:
     aliases: [bt, btourney, bendingt, btournament, tourny, tournament]
