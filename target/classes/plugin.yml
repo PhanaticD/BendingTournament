@@ -1,8 +1,0 @@
-name: BendingTournament
-version: 1.0-SNAPSHOT
-main: com.Jacksonnn.BendingTournament.BendingTournament
-authors: [Jacksonnn]
-commands:
-  bendingtournament:
-    aliases: [bt, btourney, bendingt, btournament, tourny, tournament]
-    usage: /<command>
